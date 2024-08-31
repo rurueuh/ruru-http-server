@@ -5,11 +5,9 @@
 
 int main(int argc, char **argv)
 {
-    // Flush after every std::cout / std::cerr
     std::cout << std::unitbuf;
     std::cerr << std::unitbuf;
 
-    // You can use print statements as follows for debugging, they'll be visible when running tests.
 
     Socket server(4221);
     server.listen();
@@ -18,9 +16,7 @@ int main(int argc, char **argv)
         std::string data = client.recv();
         std::string path = Http::getPath(data);
         Log::save("Request from " + client.getIP() + ": " + path);
-        // insert before in path ./www
         path = "../www" + path;
-        // check if the file exists
         auto file = std::fstream(path);
         if (file.is_open()) {
             uint file_size = 0;
